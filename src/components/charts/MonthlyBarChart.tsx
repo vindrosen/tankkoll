@@ -33,7 +33,7 @@ export function MonthlyBarChart({
   return (
     <div className="h-64" role="img" aria-label={ariaLabel}>
       <ResponsiveContainer width="100%" height="100%">
-        <BarChart data={data} margin={{ top: 8, right: 8, bottom: 0, left: -18 }} barCategoryGap="25%">
+        <BarChart data={data} margin={{ top: 8, right: 8, bottom: 0, left: -8 }} barCategoryGap="25%">
           <CartesianGrid stroke={theme.grid} vertical={false} />
           <XAxis
             dataKey="label"
@@ -46,7 +46,7 @@ export function MonthlyBarChart({
             tick={{ fill: theme.tick, fontSize: 12 }}
             axisLine={false}
             tickLine={false}
-            width={46}
+            width={56}
             tickFormatter={(v: number) => formatNumber(v)}
           />
           <Tooltip
