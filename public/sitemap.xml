@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url><loc>https://erlandsson.online/tankkoll/</loc><priority>1.0</priority></url>
+  <url><loc>https://erlandsson.online/tankkoll/tankning/</loc><priority>0.8</priority></url>
+  <url><loc>https://erlandsson.online/tankkoll/tankningar/</loc><priority>0.7</priority></url>
+  <url><loc>https://erlandsson.online/tankkoll/statistik/</loc><priority>0.7</priority></url>
+  <url><loc>https://erlandsson.online/tankkoll/bilar/</loc><priority>0.6</priority></url>
+  <url><loc>https://erlandsson.online/tankkoll/installningar/</loc><priority>0.3</priority></url>
+</urlset>
