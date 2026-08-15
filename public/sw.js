@@ -1,5 +1,6 @@
 /* TankKoll service worker — offline-first app shell. */
-const VERSION = "tankkoll-v1";
+const CACHE_PREFIX = "tankkoll-";
+const VERSION = `${CACHE_PREFIX}v1`;
 
 // Base path is derived from where the SW is registered so the same file
 // works locally (/) and on GitHub Pages (/tankkoll/).
@@ -34,7 +35,13 @@ self.addEventListener("activate", (event) => {
     caches
       .keys()
       .then((keys) =>
-        Promise.all(keys.filter((k) => k !== VERSION).map((k) => caches.delete(k))),
+        // Cache Storage is shared across every app on the domain — only
+        // touch caches this app itself created.
+        Promise.all(
+          keys
+            .filter((k) => k.startsWith(CACHE_PREFIX) && k !== VERSION)
+            .map((k) => caches.delete(k)),
+        ),
       )
       .then(() => self.clients.claim()),
   );

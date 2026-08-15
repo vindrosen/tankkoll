@@ -80,6 +80,13 @@ export default function RootLayout({
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
+        {process.env.NODE_ENV === "production" && (
+          <script
+            defer
+            src="https://analytics.erlandsson.online/script.js"
+            data-website-id="ab4f077e-1961-4726-b7b2-2819521e7ad7"
+          />
+        )}
         <AppShell>{children}</AppShell>
         <SwRegistrar />
       </body>

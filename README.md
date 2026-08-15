@@ -5,8 +5,7 @@ webbapp (PWA) som loggar dina tankningar, räknar ut bilens *verkliga* förbrukn
 och jämför den mot fabriksuppgiften (WLTP). All data sparas lokalt i din
 webbläsare – inga konton, ingen server, ingen spårning.
 
-**Live:** https://erlandsson.online/tankkoll ·
-https://vindrosen.github.io/tankkoll/
+**Live:** https://everydayapps.se/app/tankkoll/
 
 ![TankKoll – social bild](public/images/og.jpg)
 
@@ -126,12 +125,13 @@ Open Graph/Twitter-kort med absoluta URL:er, JSON-LD (`WebApplication`),
 
 ## Deploy
 
-Push till `main` bygger och publicerar automatiskt via GitHub Actions
-(`.github/workflows/deploy.yml`) med `NEXT_PUBLIC_BASE_PATH=/tankkoll`.
-Hanterade GitHub Pages-fällor: `npm install` i stället för `npm ci`
-(Windows-låsfiler), `.nojekyll`, `asset()`-helper för bildsökvägar under
-basePath, RSC-payload-utplattning (`scripts/flatten-rsc-payloads.mjs`) och
-`manifest.ts` med `force-static`.
+Statisk export (`next build`, `output: "export"`) byggs i en Docker-container
+och serveras av nginx bakom `everydayapps.se/app/tankkoll/`.
+`NEXT_PUBLIC_BASE_PATH=/app/tankkoll` sätts som build-arg och styr
+`next.config.ts`, `asset()`-helpern och `src/lib/site.ts` (canonical/OG/
+sitemap) från samma källa. RSC-payloaderna plattas ut efter bygget
+(`scripts/flatten-rsc-payloads.mjs`), och `manifest.ts`/`sitemap.ts`/
+`robots.ts` använder `force-static` för att fungera i en statisk export.
 
 ## Licens
 

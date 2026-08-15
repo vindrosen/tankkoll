@@ -1,0 +1,48 @@
+services:
+  tankkoll:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        # Bakas in i canonical/OG/sitemap och basePath vid bygget.
+        # Standardvärdet är den riktiga adressen, så en ren klon bygger rätt
+        # sajt utan att någon kommer ihåg att sätta en variabel.
+        NEXT_PUBLIC_BASE_PATH: ${NEXT_PUBLIC_BASE_PATH:-/app/tankkoll}
+    image: tankkoll:latest
+    container_name: tankkoll
+    restart: unless-stopped
+    # Compose skapar annars ett eget projektnätverk även utan en networks-
+    # sektion, och erlandssonserver har uttömt Dockers fördefinierade
+    # adresspooler ("all predefined address pools have been fully subnetted").
+    # Appen är en ensam nginx utan andra tjänster att nå via DNS, så
+    # docker0-bryggan räcker.
+    network_mode: bridge
+    ports:
+      - "${PORT:-3079}:8080"
+    labels:
+      com.centurylinklabs.watchtower.enable: "true"
+      uptime.enable: "true"
+      uptime.name: "TankKoll"
+      uptime.url: "https://everydayapps.se/app/tankkoll/"
+      # Läge: strippa. Origin serverar från roten, så monitorn pekar dit.
+      uptime.origin.url: "http://172.22.0.1:3079/"
+      uptime.origin.keyword: "/app/tankkoll/_next/static/"
+      uptime.type: "http"
+      uptime.group: "Applications"
+      uptime.tags: "Applications,Docker"
+    healthcheck:
+      # Två villkor: en resurs GENOM sub-path-spegeln (bevisar att
+      # rewrite-reglerna finns) och att sidan bär canonical-adressen
+      # (bevisar att rätt dokument serveras).
+      test:
+        - CMD-SHELL
+        - wget -q -O /dev/null http://127.0.0.1:8080/app/tankkoll/icons/icon-192.png && wget -qO- http://127.0.0.1:8080/app/tankkoll/ | grep -q '/app/tankkoll/_next/static/'
+      interval: 30s
+      timeout: 5s
+      start_period: 5s
+      retries: 3
+    logging:
+      driver: json-file
+      options:
+        max-size: "10m"
+        max-file: "3"
