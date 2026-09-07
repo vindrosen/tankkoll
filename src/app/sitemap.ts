@@ -11,6 +11,7 @@ const ROUTES: Array<{ path: string; priority: number }> = [
   { path: "/statistik/", priority: 0.7 },
   { path: "/bilar/", priority: 0.6 },
   { path: "/installningar/", priority: 0.3 },
+  { path: "/kontakt/", priority: 0.2 },
 ];
 
 export default function sitemap(): MetadataRoute.Sitemap {

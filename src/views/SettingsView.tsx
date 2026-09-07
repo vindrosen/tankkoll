@@ -1,6 +1,7 @@
 "use client";
 
 import { useRef, useState } from "react";
+import Link from "next/link";
 import { Download, FileUp, Moon, RotateCcw } from "lucide-react";
 import { Card, CardTitle } from "@/components/Card";
 import { ConfirmDialog } from "@/components/ConfirmDialog";
@@ -179,6 +180,9 @@ export default function SettingsView() {
             >
               erlandsson.online
             </a>
+            . Frågor eller förbättringsförslag? <Link href="/kontakt" className="text-primary hover:underline">
+              Kontakta mig
+            </Link>
             .
           </p>
         </Card>

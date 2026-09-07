@@ -1,0 +1,217 @@
+/*
+ * Kontaktformuläret. CSS Module och inte Tailwind, eftersom samma två filer
+ * ska kunna droppas in i ett tjugotal appar där bara en del har Tailwind.
+ *
+ * Ingen reservfärg får anta ljust läge. En delad komponent vet ingenting om
+ * appens palett, och `color: var(--text, #17181c)` blir osynlig i en mörk app
+ * medan bygget är grönt. Nedtoning görs därför med opacity, betoning ärvs, och
+ * ytor är genomskinliga med en medelgrå ram som syns mot båda bakgrunderna.
+ */
+
+.sida {
+  max-width: 42rem;
+  margin: 0 auto;
+  padding: 2.5rem 1.25rem 3rem;
+}
+
+.rubrik {
+  font-size: 1.9rem;
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+  margin: 0 0 0.6rem;
+}
+
+.ingress {
+  margin: 0 0 1.75rem;
+  opacity: 0.78;
+}
+
+.mejl {
+  display: flex;
+  align-items: center;
+  gap: 0.9rem;
+  padding: 0.9rem 1.1rem;
+  margin-bottom: 2rem;
+  border: 1px solid var(--kf-ram, rgba(128, 128, 128, 0.35));
+  border-radius: 0.75rem;
+  background: var(--kf-yta, transparent);
+  text-decoration: none;
+  color: inherit;
+}
+
+.mejl:hover {
+  border-color: currentColor;
+}
+
+.mejlIkon {
+  flex: 0 0 auto;
+  opacity: 0.85;
+}
+
+.mejl b {
+  display: block;
+  font-size: 0.9rem;
+}
+
+.mejlAdress {
+  display: block;
+  font-size: 0.9rem;
+  opacity: 0.72;
+  word-break: break-all;
+}
+
+.avdelare {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  opacity: 0.7;
+  margin-bottom: 1.5rem;
+}
+
+.avdelare::before,
+.avdelare::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: var(--kf-ram, rgba(128, 128, 128, 0.35));
+}
+
+.falt {
+  display: block;
+  font-weight: 600;
+  margin: 1rem 0 0.35rem;
+}
+
+.hjalp {
+  display: block;
+  font-weight: 400;
+  font-size: 0.875rem;
+  opacity: 0.72;
+}
+
+.textruta,
+.rad,
+.val {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 0.7rem 0.85rem;
+  border: 1px solid var(--kf-ram, rgba(128, 128, 128, 0.35));
+  border-radius: 0.55rem;
+  background: var(--kf-yta, transparent);
+  color: inherit;
+  font: inherit;
+}
+
+.textruta {
+  min-height: 9.5rem;
+  resize: vertical;
+}
+
+.textruta:focus-visible,
+.rad:focus-visible,
+.val:focus-visible {
+  outline: 2px solid currentColor;
+  outline-offset: 1px;
+}
+
+.knapp {
+  margin-top: 1.35rem;
+  padding: 0.72rem 1.5rem;
+  border: 1px solid currentColor;
+  border-radius: 0.55rem;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.knapp:hover:not(:disabled) {
+  opacity: 0.8;
+}
+
+.knapp:disabled {
+  opacity: 0.55;
+  cursor: progress;
+}
+
+/*
+ * Honeypot. Får inte döljas med display:none — en del bottar hoppar över just
+ * sådana fält. aria-hidden håller skärmläsare borta i stället.
+ */
+.falla {
+  position: absolute;
+  left: -9999px;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}
+
+.status {
+  margin-top: 1rem;
+  padding: 0.75rem 1rem;
+  border-radius: 0.55rem;
+  border: 1px solid var(--kf-ram, rgba(128, 128, 128, 0.35));
+}
+
+.status:empty {
+  display: none;
+}
+
+.status[data-lage='fel'] {
+  border-color: #e05a5a;
+  color: #e05a5a;
+}
+
+.status[data-lage='klart'] {
+  border-color: #3fae6a;
+  color: #3fae6a;
+}
+
+/* RE-loggan har en mörk halo inbakad i PNG:en och måste stå mot mörk botten. */
+.fot {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 1.25rem;
+  margin-top: 3rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--kf-ram, rgba(128, 128, 128, 0.35));
+  font-size: 0.875rem;
+}
+
+.fot a {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  color: inherit;
+  text-decoration: none;
+}
+
+.bricka {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: #0b0d12;
+  border-radius: 0.5rem;
+  padding: 0.3rem 0.5rem;
+}
+
+.bricka img {
+  display: block;
+  height: 1.6rem;
+  width: auto;
+}
+
+.fot b {
+  display: block;
+  font-size: 0.9rem;
+}
+
+.fot small {
+  display: block;
+  opacity: 0.72;
+}
