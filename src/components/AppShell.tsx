@@ -4,6 +4,7 @@ import { useEffect } from "react";
 import { useAppStore } from "@/store/useAppStore";
 import { Sidebar } from "./Sidebar";
 import { BottomNav } from "./BottomNav";
+import { InstalleraKnapp } from "./InstalleraKnapp";
 import { ToastViewport } from "./Toast";
 
 export function AppShell({ children }: { children: React.ReactNode }) {
@@ -35,6 +36,8 @@ export function AppShell({ children }: { children: React.ReactNode }) {
         className="mx-auto w-full max-w-5xl flex-1 px-4 pb-28 pt-6 sm:px-6 lg:px-10 lg:pb-12 lg:pt-10"
       >
         {children}
+        {/* Renderar ingenting förrän webbläsaren säger att installation är möjlig. */}
+        <InstalleraKnapp />
       </main>
       <BottomNav />
       <ToastViewport />
